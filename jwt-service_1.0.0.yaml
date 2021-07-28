@@ -1,0 +1,129 @@
+swagger: '2.0'
+info:
+  title: jwt-service
+  x-ibm-name: jwt
+  version: 1.0.0
+x-ibm-configuration:
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - set-variable:
+          version: 2.0.0
+          title: set-variable
+          actions:
+            - set: jwk-private
+              value: >-
+                {     "p":
+                "-2KIXs0dmc89KdCqm1vlJWUM3PAZuGMeDnc8FHCmWqksMqja38184aoNXueyYgntsT8IlJ_SKAsuJfLcVaR8Ynwd6vSlBCSeWmSSMt-e6AzNJhWvHZX_-u85ZmZW4-qtVoJtWPdSVhAn2ni1uF3oo5R3W4Yet0-U4nJ-z6mNTnE",    
+                "kty": "RSA",     "q":
+                "vEa8uO3Guh_UbnPyHF9v51nTVPr3mdNc3NGkwaTSznJPALEd5TQXBGxpjFvmAwD8sFrmHqXy6G-6XcO04rEtKwPw1PjRR8NL7tQJRl-0IuFN3Y-guRrlLEtCq3XEFZf5GKnRHY6yxct2dITnOJRpg73g1dRhh3OAArXebMknqSk",    
+                "d":
+                "KXU6IZmt0HV7ogmqlocyv9VXA6w-uU2-XYsU2GdlR2XeUY0vTECH3xZCbD0sIXaEt_BO8OQIqXJEyANsyP4cIdG-ltTBqkd651LqgdFxbMVscX7VGmuebEEvKrL8mESu3PnQJ__Ug13lxyIfuBEP1TqAg6v33gyJOOjiOLcWmEGXo3xMSji1DqAqccL7BCE7qZOSxoSYiqDSjlGzfAYzouITAvKvdOsNbovAM9uEaessS-_gVZW6E72jCnVxrhyYOl1KBLWAGs_eVfmFK-7L0vsxrmKVCZJ4RdLPxOiw-4MpjKcrGX3niM8PHuzhktHHtw3-Z8CPDWCQsozqAvicAQ",    
+                "e": "AQAB",     "use": "sig",     "kid":
+                "65N3K0ixFkt2JK4bHkBvxPPFan8VSFj9DQkq7EWTrzU",     "qi":
+                "6Iz2eYxVzALJ2_ES4mGFar_D4wCTbPQEiIjROCdlE0To2oYJoikRFn4d4VV-udGQOrvcK4StG3b5wnFMTTZXZt6n0D9qeSWVcBUAUEjZGTwmf1Jtak2YM00lC9bRdh6T_wASh03t8Zvob5jhoyjTw6Ltu_T2Vni3nZtUxbQdICE",    
+                "dp":
+                "UnoLf_8QHSyvRo7dysclsVUsGTj1V1e9vsVEAvjKu6gRhjV8Sj1jIa7nYCHolt3nDGY_7HNbQiQY6f56Z-bloHJUZogJtAhHpCSnCuXvfvbkQACRScWzDKN8U6p0C6ctY9q7AZtzeiUmzjkYdfrpnvHRD0g7v6zujjU-geeBIyE",    
+                "alg": "RS256",     "dq":
+                "uO3yKOLEs8TX77XLNbs4O1Grlmj8EwfcyrjQz7OJrGXy24cdCijkAuBJvCf4ATNTABYIukneEhjMQZUdcxz8dKfmQgoz5f0Z9HgotAsE8M3Eob-V6rtUJvG1hpyiAWPItET4tcOYLVfv_fsc8iI0kcZLtTxqn5T_Q6pH0yqx3iE",    
+                "n":
+                "uOHSaN0C0wt_pKx3SyUXZSzaZB2V5_gNBHwR5gOVOyR40B87HNgTgN-OU-LhdPebW13oVICndsik5lyd-BtnQ0XTRrZthLA9BI-R_WvHqxxzOt2xkD9sI6sw18Nd-9duih1-bdBHaCRkbNYsNuum67HH8kgcC8hiM-Cy9ovnLtWKClTWERobe34sTKZqpsgEJ4Uhgq2GUa28TmMqxhGcp1tAQoUBV1OOdaqZUJ7PU-6H6L3_4AFC0FRbKWgK05yQRO09qbnUV6320rv_ruEu6lNlXOuPjTYDR3-msFrnMDj8wcmJoIPxMSjULnU7oxW3bpgdG35F-QGhWEL6HKEpGQ"
+                }
+              type: any
+            - set: jwk-public
+              value: >-
+                {     "kty": "RSA",     "e": "AQAB",     "use": "sig",    
+                "kid": "65N3K0ixFkt2JK4bHkBvxPPFan8VSFj9DQkq7EWTrzU",     "alg":
+                "RS256",     "n":
+                "uOHSaN0C0wt_pKx3SyUXZSzaZB2V5_gNBHwR5gOVOyR40B87HNgTgN-OU-LhdPebW13oVICndsik5lyd-BtnQ0XTRrZthLA9BI-R_WvHqxxzOt2xkD9sI6sw18Nd-9duih1-bdBHaCRkbNYsNuum67HH8kgcC8hiM-Cy9ovnLtWKClTWERobe34sTKZqpsgEJ4Uhgq2GUa28TmMqxhGcp1tAQoUBV1OOdaqZUJ7PU-6H6L3_4AFC0FRbKWgK05yQRO09qbnUV6320rv_ruEu6lNlXOuPjTYDR3-msFrnMDj8wcmJoIPxMSjULnU7oxW3bpgdG35F-QGhWEL6HKEpGQ"
+                }
+              type: any
+      - operation-switch:
+          version: 2.0.0
+          title: operation-switch
+          case:
+            - operations:
+                - verb: get
+                  path: /gen
+              execute:
+                - jwt-generate:
+                    version: 2.0.0
+                    title: jwt-generate
+                    jwt: generated.jwt
+                    iss-claim: iss-claim
+                    exp-claim: 3600
+                    aud-claim: request.headers.aud-claim
+                    jws-jwk: jwk-private
+                    jws-alg: RS256
+                    jwe-jwk: jwk-public
+                    jwe-enc: A256CBC-HS512
+                    jwe-alg: RSA-OAEP-256
+                - set-variable:
+                    version: 2.0.0
+                    title: set-variable
+                    actions:
+                      - set: message.body
+                        value: $(generated.jwt)
+                        type: any
+            - operations:
+                - verb: get
+                  path: /val
+              execute:
+                - jwt-validate:
+                    version: 2.0.0
+                    title: jwt-validate
+                    jwt: request.headers.authorization
+                    output-claims: decoded.claims
+                    aud-claim: ''
+                    jwe-crypto: ''
+                    jwe-jwk: jwk-private
+                    jws-jwk: jwk-public
+                    iss-claim: ''
+                - set-variable:
+                    version: 2.0.0
+                    title: set-variable
+                    actions:
+                      - set: message.body
+                        value: $(decoded.claims)
+                        type: any
+          otherwise: []
+    catch:
+      - default:
+          - set-variable:
+              version: 2.0.0
+              title: jwt-validate-error
+              actions:
+                - set: message.body
+                  value: $(jwt-validate.error-message)
+                  type: any
+  properties:
+    target-url:
+      value: 'http://example.com/operation-name'
+      description: The URL of the target service
+      encoded: false
+    iss-claim:
+      value: ups
+basePath: /jwt
+paths:
+  /val:
+    get:
+      responses:
+        '200':
+          description: OK
+  /gen:
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+schemes:
+  - https
