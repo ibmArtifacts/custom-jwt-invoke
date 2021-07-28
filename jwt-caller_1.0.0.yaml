@@ -45,6 +45,10 @@ x-ibm-configuration:
           cache-response: time-to-live
           cache-ttl: 10
           output: jwt-response
+          stop-on-error:
+            - ConnectionError
+            - SOAPError
+            - OperationError
       - gatewayscript:
           version: 2.0.0
           title: gatewayscript
@@ -54,30 +58,16 @@ x-ibm-configuration:
             console.log('****jwt-response var from invoke: ' +
             apim.getvariable('jwt-response.body'));
 
-            //var vMessageBody =
-            JSON.parse(JSON.stringify((apim.getvariable('message.body'))));
 
-            //console.log('****vMessageBody: ' + vMessageBody);
+            var vJWTResponse = apim.getvariable('jwt-response.body').toString();
 
-            //apim.setvariable('message.headers.authorization', vMessageBody);
+            console.log('****Type of vJWTResponse: ' + typeof vJWTResponse);
 
-
-            var vJWTResponse = apim.getvariable('jwt-response.body');
-
-            //var vJWTResponse = 'Bearer
-            eyJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiYWxnIjoiUlNBLU9BRVAtMjU2IiwiY3R5IjoiSldUIn0.nI6y1B4MDV0idApR15cZ4pv2Sg0aAF_hH85b8kWjhev0qWM-dVryi5uzDP0Mr2ym4RvApcDAZBwdwyhy9WbnWWL75Khshd54D4Qd2IcVgaFGiQzhFmREx7Xc_bsbDG26xjli4etmt4j4LvBFIaxfTKxg0kXf-WEAuEogLkOhYbxkN88ZK-Mthk6GaE7dPqawws0XdfyocBZVQus6xjKjTWfdfbAcxli4bhIZcZustf9Ej06pW8cj-W0pA62_o6s50ZFlIYVU3E_RrIhX1qriasGwfw0Z5bphrCtYYE7SxeIN9o0AVEoL5V8R68VMs4NZGu87QDy7U6ZpQUwuesBj0Q.FgPfNUoAWKhEoSc-tUfDSg.nXV3-22Nwq3rWD9EagdtILHGsZYvoYved6YAnY0K4448eg3py8hJXQZuXiBHlFP5htYEB280BGIEECCk4eAPrvKzNT192qEi5PffOQ4zezURHEdj51NB7liHADX4JUQKk-63xTvU_smndB0aq9Njp5FvHUftwd0C6ihVQW-6P88mowZwxB4Qwrq2_Eu-MRxrPXwfjCOYnFz_U0tjDGoS_DIjW7ligIyj24_LQAjS29l-PfPHUmauWZp_beqOo5CBZ7yehkuxQOSnYnJDFKBNVPXHWqlidmRxgEwjjZHZYt_ZLpaBI8qoQWGSmSeKOuklDEbUm1MnIpSMb4kwb-r1vgTfzVoN99nCTkkG6K0VvdlEh-UxMEIAnxXN-o9DkXVakwXDHsLJso-5uqKQSBDJRRq66KpHRqWIJi7i4q_oOogFZsbvcx2ododtwNwIZ4XTOghHjGEOi47gyR88QGsqQeN31B1CYGhyW-W9huRpmRl_u2sXacn7WIAEOzknn_pwIzNv-K_X06SjrkL4m20ngZeOlaISkrov42vl9mG-_Q6mabCnHXagmd3DHPwD9OMjOUIpix0z1LEB1hq4v2mZhUVWdt4im3pPPZWkM0Zp6Up3T4KOr0-rIujiRnuNuHMcGxSoEeJqoaw92i7qnrA4MLM1qU-nMsslD4NT_QRGAe033-iNtXVWSDCpVmNaQwMR3zLfkqxe1UNJ8cBRFAZ6Og.OtIIfNjajR5seuMQ3tq6U8iCdbMYTv30hUqPmqvGhRU';
-
-            apim.setvariable('message.body', vJWTResponse);
 
             apim.setvariable('message.headers.authorization', vJWTResponse);
 
-
             console.log('****Auth.header set for down stream call: ' +
             apim.getvariable('message.headers.authorization'));
-
-
-
-
 
 
             //Logging the JWT generate URL:
@@ -88,6 +78,9 @@ x-ibm-configuration:
             apim.getvariable('api.catalog.name') + '/jwt/gen';
 
             console.log('****JWT-gen URL: ' + vJWTGenUrl);
+
+
+            apim.setvariable('message.body', vJWTResponse);
 
       - invoke:
           version: 2.2.0
@@ -115,17 +108,8 @@ x-ibm-configuration:
           title: switch
           case:
             - condition: 'false'
-              execute:
-                - set-variable:
-                    version: 2.0.0
-                    title: setVar for AuthHeader
-                    actions:
-                      - set: message.headers.authorization
-                        value: $(jwt-response.body)
-                        type: any
-                      - set: message.body
-                        value: $(jwt-response.body)
-                        type: any
+              execute: []
+    catch: []
   properties: {}
 basePath: /jwt-caller
 paths:
