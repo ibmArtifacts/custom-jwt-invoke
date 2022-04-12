@@ -66,9 +66,9 @@ The assembly section contains the policies similar to the OOTB policies encapsul
           apim.getvariable('local.parameter.udp-audclaim')); 
           console.log('****Sending data for JWT****');
 ```  
-3.	Invoke: invoke-JWT-gen – similar to the Invoke policy in the Assemble design, this will take the user input value from $(local.parameter.udp-jwtgenurl) and $(local.paramter.udp-ttl) reflected in the diagram below and source code  
-```  
-![image](https://user-images.githubusercontent.com/66093865/162897341-ae5caa86-57d7-40ae-addc-ddb5469acbc1.png)
-```  
+3.	Invoke: invoke-JWT-gen – similar to the Invoke policy in the Assemble design, this will take the user input value from $(local.parameter.udp-jwtgenurl) and $(local.paramter.udp-ttl) reflected in the diagram below and source code.  
+
+![image](https://user-images.githubusercontent.com/66093865/162898639-2335f5db-98a6-45cc-aebc-d6fc9cd2ff26.png)
+
 
 
