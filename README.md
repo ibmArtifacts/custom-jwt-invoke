@@ -58,11 +58,11 @@ The assembly section contains the policies similar to the OOTB policies encapsul
           console.debug('****local.parameter-OUTPUT: ' +
           JSON.stringify(apim.getvariable('local'))); 
 
-          console.debug('****Setting the following clientid to JWT Gen: ' +
+          console.debug('****Setting the following clientid: ' +
           apim.getvariable('local.parameter.udp-clientid')); 
-          console.debug('****Setting the following clientsecret to JWT Gen: ' +
+          console.debug('****Setting the following clientsecret: ' +
           apim.getvariable('local.parameter.udp-clientsecret')); 
-          console.debug('****Setting the following aud-claim to JWT Gen: ' +
+          console.debug('****Setting the following aud-claim: ' +
           apim.getvariable('local.parameter.udp-audclaim')); 
           console.log('****Sending data for JWT****');
 ```  
