@@ -72,5 +72,38 @@ The assembly section contains the policies similar to the OOTB policies encapsul
 
 ![image](https://user-images.githubusercontent.com/66093865/162898639-2335f5db-98a6-45cc-aebc-d6fc9cd2ff26.png)
 
+4. gatewayscript: The last gatewayscript will log the jwt response from the Invoke in debug level logging, the last 5 characters of the jwt in normal level logging, and set the jwt to the authorization header to be used for the proceeding policy.  
+
+```
+    - gatewayscript:
+        version: 2.0.0
+        title: gatewayscript
+        source: >+
+          console.log('****Invoke to JWT Gen completed****');
+
+          var apim = require('apim');
+          
+          console.debug('****Full response from JWT Gen: ' + JSON.stringify(apim.getvariable('jwt-response')));
+
+          var vJWTResponse = (apim.getvariable('jwt-response').body).toString();
+          
+          console.debug('****jwt-response.body from JWT Gen invoke: ' + vJWTResponse);
+
+          apim.setvariable('message.headers.authorization', vJWTResponse);
+          var vObfuscatedJWT = vJWTResponse.substr(vJWTResponse.length - 5);
+          console.log('****JWT set to Authorization header (showing-last-5-characters-only): ' + vObfuscatedJWT);
+
+          var vJWTGenUrl = 'https://' + apim.getvariable('request.headers.host') + '/' + apim.getvariable('api.org.name') + '/' + apim.getvariable('api.catalog.name') + '/jwt/gen';
+
+          console.log('****JWT-gen URL: ' + vJWTGenUrl);
+
+          console.debug('****local output: ' + JSON.stringify(apim.getvariable('local')));
+```  
+
+5. Once authorizing the policy is completed, the yaml may be zipped up and uploaded to the gateway.  
+![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/7c0da680-e383-4d20-b3d1-12c9545fbffd)  
+
+
+
 
 
