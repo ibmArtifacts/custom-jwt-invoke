@@ -68,9 +68,29 @@ The assembly section contains the policies similar to the OOTB policies encapsul
           apim.getvariable('local.parameter.udp-audclaim')); 
           console.log('****Sending data for JWT****');
 ```  
-3.	Invoke: invoke-JWT-gen – similar to the Invoke policy in the Assemble design, this will take the user input value from $(local.parameter.udp-jwtgenurl) and $(local.paramter.udp-ttl) reflected in the diagram below and source code.  
+3.	Invoke: invoke-JWT-gen – similar to the Invoke policy in the Assemble design, this will take the user input value from `$(local.parameter.udp-jwtgenurl)` and `$(local.paramter.udp-ttl)` reflected in the diagram below and source code.  
 
-![image](https://user-images.githubusercontent.com/66093865/162898639-2335f5db-98a6-45cc-aebc-d6fc9cd2ff26.png)
+```  
+    - invoke:
+        title: invoke-JWT-gen
+        version: 2.0.0
+        verb: GET
+        target-url: $(local.parameter.udp-jwtgenurl)
+        follow-redirects: false
+        timeout: 60
+        parameter-control:
+          type: blocklist
+          values: []
+        header-control:
+          type: blocklist
+          values: []
+        inject-proxy-headers: false
+        backend-type: json
+        cache-response: time-to-live
+        cache-ttl: $(local.parameter.udp-ttl)
+        output: jwt-response
+        stop-on-error: []
+```  
 
 4. gatewayscript: The last gatewayscript will log the jwt response from the Invoke in debug level logging, the last 5 characters of the jwt in normal level logging, and set the jwt to the authorization header to be used for the proceeding policy.  
 
