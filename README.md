@@ -145,7 +145,7 @@ NOTE: You may get the jwt-generate api service endpoint from that apis **Endpoin
 ![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/5eebd54a-fdec-44b6-9236-7e16f8a9ac59)  
   
 2. Publish the API.  
-NOTE: You will notice the following error below. You may ignore that.  
+NOTE: You will notice the following error below. You may ignore that, but please republish the api.  
 ![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/3f09a6a9-82d3-4c46-8502-5ab0a495865d)  
   
 3. Once published, go to the **Test** tab of the api and click **Send** to invoke the jwt-generate service.
