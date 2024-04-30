@@ -1,0 +1,72 @@
+swagger: '2.0'
+info:
+  title: jwt-generate
+  x-ibm-name: jwt-generate
+  version: 1.0.0
+x-ibm-configuration:
+  cors:
+    enabled: true
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - set-variable:
+          version: 2.0.0
+          title: set-jwk-RS256
+          actions:
+            - set: jwk-private
+              value: "{ \t\"kty\": \"RSA\", \t\"n\": \"pAZGLfoabZxF5bC7JdlH4bUUG9Y7X6ZUyKZ9ufD0lQAWDg4n42DD-mG1VL9Wd9QXDrs5jcWfnODIhKJm80dSk5UIhSwqaJXjNT0lot1g7hFU4zLX7P0yYg-Brsi3S97hBbhajQx9Di0E-wnFhBMpderpSwORDyqgwhwqGIogAyqfP2WjzB5vUG1Axt8kWMV0GuagXekeiICI9KAbUjAr8ngulMMt3t01SvpyZ8B0ZjdYXXjHUl8k22eeLRJApa8JtXC3tGHXCfS-U9XndVbavHCnuER2dx_W5T_hQmY10DgA1eJJckXEZRdnGvgRxqPtm-k3fUnFtyvsb3ctwkAO7Q\", \t\"e\": \"AQAB\", \t\"d\": \"E0JFVTqrhbk2n8yLfNsxTHglf0s9N3LhO5oI4x8-qIwVCttwpYsEF88HKoc40OMPPgSPsmzE2_ess54Z9nCmanuyP2i7JgKLZgHi_Gd_7RQN4otivQnRs5_cezhIBVmLFE_cGfmgaVyx3AP-tA5H7PeDIvKtQpmfvIrwCmeVcKmNXLPuly3HXCEzLAo-OhcYcEKpOXRO5tQIFC6BalfW-_xBHbhryuRU5IHp0AGRvkcy9JIPMh94ICpI9_c16-QO0oVL_6mpG0ol3sF_78b4QSsFjNNMeqo8gJGsjNJypVGDLY2mJyRTNh01fqKGImRa5A5JdfosI2r96Hrz6S3agQ\", \t\"p\": \"0elbyJ9VXOJAf92ZOlGm_BVewErAK_Hb4OJKIQBQe68s7n79XinHtyXYYqZTHaySE0HZIz0Z-CsZMqCVfjTt8HW4ao0nRVxaAtxxlC8eBnFmLtXWEb7lNwF6Rx8j4XMSP66cX0_MmQvg9jkqldXVs960dilxtI91ep3K_mu4fyE\", \t\"q\": \"yAm2CxxntfsMNQKCjbJwuVDHzQqgIuO6asjClEHuBCvl-mOAwzAjtJxXDCHK9tnRaMd8yJKJZlJXw5oOC9O6dFoH_r22gFjUA9yMdQhQDK2sIe0VBkWhBN2cgv_tnN0GmUu1LHqNUXWcHz8nLu1c1mtcKTc-1EEgGBQdN8Ahkk0\", \t\"dp\": \"PPB0Vu_6xjZg5z4cB9RAmBpUIZsR4zAZ11Wak64Vr3KRpsNzJu0WL9Nq2GjU5F5_IdwR_6rzaRqJ_Cqme7c-BHsIiNZlujsvXnlE9_Id010Ef0BRH2G-BZQGPbOKpR7VA2vbtcfi6-OI8bJy7IDhw5A577vkaLjlMC2zCt2W-EE\", \t\"dq\": \"GveMLhVHOfY9IAxVk0qh_amRNegfzHRM1kZ4TMpSjwdn-ohdfHLJ7XhCF-WaWgrlOy3heZyfn0ashDcJe7iwYy0b9NCYgNb4xgh-euyC9iKXmP9AHVdXrLM_fT2JR-NYF2RoaTWgRYIIaQH3g1EGefWBOCE1fCHHdNeJVNG29OU\", \t\"qi\": \"JnB2PhiRIGZ_qHlw-ZIeVxM2ddtawrOZ7f9ZUHNqU-1K9Sny3rNyu3KQSbG2TRWq22I55wm5XNmdfV2cGg6LZv0xW1Zwhbix-sKFZSPbKX3Qg3D4DEJcYsh8H0Jb1_6r0JW90f-NdoaWCQUcba4D6fzcx-1zxhjKvQkg6z55lTA\" }"
+              type: any
+            - set: iss-claim
+              value: apic-sandbox
+              type: any
+          description: ''
+      - jwt-generate:
+          version: 2.0.0
+          title: jwt-generate
+          jwt: generated.jwt
+          iss-claim: iss-claim
+          exp-claim: 3600
+          aud-claim: request.headers.aud-claim
+          jws-jwk: jwk-private
+          jwe-jwk: ''
+          jws-alg: RS256
+      - set-variable:
+          version: 2.0.0
+          title: set-response
+          actions:
+            - set: message.body
+              value: $(generated.jwt)
+              type: string
+    finally: []
+  properties:
+    target-url:
+      value: http://example.com/operation-name
+      description: The URL of the target service
+      encoded: false
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+basePath: /jwt-generate
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          description: success
+          schema:
+            type: string
+      consumes: []
+      produces: []
+securityDefinitions:
+  clientID:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
+security: []
+schemes:
+  - https
