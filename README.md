@@ -124,13 +124,13 @@ The assembly section contains the policies similar to the OOTB policies encapsul
 ![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/7c0da680-e383-4d20-b3d1-12c9545fbffd)  
 
 NOTE: When you use this custom-JWT-udp policy, you may get the following error:  
-![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/f8d24423-1aa2-47dd-bfbf-28aed753d183)  
+![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/287fdffb-91c5-47d7-9fb7-f6f2d85906ea)  
+
   
 This is complaining about the `cache-ttl: $(local.parameter.udp-ttl)` within the invoke policy because it expects a string/numeric value, thus the special characters triggers a schema validation error.  
 **Run the following steps to avoid this issue**: Turn off the schema validation in the catalog by going to the Catalog Setttings > Publish validations > Edit > uncheck the `Validate custom policy schema in assembly` and **Save**.  
+![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/50be0695-63ea-4f26-9c02-e52d72b36347)  
   
-![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/fe66f94a-949d-4f8a-9f8c-97e8a3baf347)  
-
 ## Testing  
 This test will only test the generation of the JWT with the audience and issuer claim set to the token. The client id and secret validation are turned off for this test.  
 Here is a jwt-generate api service that will be the JWT provider, which will be generating the JWT that ultimately is invoked to the backend.  
@@ -148,9 +148,9 @@ NOTE: You may get the jwt-generate api service endpoint from that apis **Endpoin
 NOTE: You will notice the following error below. You may ignore that, but please republish the api.  
 ![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/3f09a6a9-82d3-4c46-8502-5ab0a495865d)  
   
-3. Once published, go to the **Test** tab of the api and click **Send** to invoke the jwt-generate service.
-At this time, the jwt-udp api you've just tested has called the jwt provider api to retrieve a token, to which then the JWT is assigned to the Authorization header for it to be avilable downstream in a backend call.
-You will see from the diagram below that the header contains "authorization", which will flow down stream to the next policy, which can be an Invoke to a backend service that requires the JWT.  
+3. Once published, go to the **Test** tab of the api and click **Send** to invoke the jwt-generate service.  
+At this point, the jwt-udp api you've just tested has called the jwt provider api to retrieve a token, to which then the JWT is assigned to the Authorization header for it to be avilable downstream in a backend call.  
+You will see from the diagram below that the header contains "authorization" from the syslog trace, which will flow down stream to the next policy, which may be an Invoke policy to a backend service that requires the JWT.  
 ![image](https://github.com/ibmArtifacts/custom-jwt-invoke/assets/66093865/dd8ae147-c4b0-4498-8466-83ccf7bb84bf)  
 
 
